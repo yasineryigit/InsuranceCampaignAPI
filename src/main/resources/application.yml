@@ -18,3 +18,10 @@ server:
   servlet:
     context-path: /api/1.0
 
+jwt:
+  secret: mySecretKey
+  expireMs: 86400000
+  refreshExpireMs: 86400000
+
+
+

@@ -45,18 +45,23 @@ public class User {
     @Column(name = "user_first_name")
     private String userFirstName;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "user_last_name")
+    private String userLastName;
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<InsuranceCampaign> insuranceCampaignList;
 
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_role_fk", insertable = false, updatable = false)
+    @JoinColumn(name = "user_role_id", insertable = false, updatable = false)
     private UserRole userRole;
 
-    @Column(name = "user_role_fk")
-    private long userRoleFk;
+    @Column(name = "user_role_id")
+    private long userRoleId;
 
-    private boolean enabled = false;
+    private boolean enabled = true;
 
     private boolean locked = false;
 
