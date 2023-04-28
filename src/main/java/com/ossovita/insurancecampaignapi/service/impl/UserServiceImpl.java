@@ -26,13 +26,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findByUserEmail(String userEmail) {
         return userRepository.findByUserEmail(userEmail)
-                .orElseThrow(() -> new UserNotFoundException("UserEmail: " + userEmail + " not found"));
+                .orElseThrow(() -> new UserNotFoundException("User not found by given email: " + userEmail));
     }
 
     @Override
     public User findByUserId(long userId) {
         return userRepository.findById(userId)
-                .orElseThrow(() -> new UserNotFoundException("UserId: " + userId + " not found"));
+                .orElseThrow(() -> new UserNotFoundException("User not found by given id: " + userId));
     }
 
     @Override
@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
                 .userRoleId(2)//todo make enum type
                 .userFirstName(userRequest.getUserFirstName())
                 .userLastName(userRequest.getUserLastName())
-                .enabled(false)
+                .enabled(true)
                 .locked(false)
                 .build();
         return modelMapper.map(userRepository.save(user), UserResponse.class);

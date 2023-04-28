@@ -1,8 +1,8 @@
 package com.ossovita.insurancecampaignapi.enums;
 
 public enum CampaignStatus {
-    PENDING_APPROVAL,
     ACTIVE,
+    PENDING_APPROVAL,
     DEACTIVATED,
     REPETITIVE
 }

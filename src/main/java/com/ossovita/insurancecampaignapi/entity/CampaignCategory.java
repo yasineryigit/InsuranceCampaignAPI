@@ -10,7 +10,7 @@ import java.util.List;
 
 @Entity
 @Data
-@Table(name = "campaign_category")
+@Table(name = "campaign_categories")
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -29,7 +29,7 @@ public class CampaignCategory {
     private boolean campaignCategoryRequiresApprovement;
 
     @OneToMany(mappedBy = "campaignCategory", fetch = FetchType.LAZY)
-    private List<InsuranceCampaign> insuranceCampaignList;
+    private List<Campaign> campaignList;
 
 
 }

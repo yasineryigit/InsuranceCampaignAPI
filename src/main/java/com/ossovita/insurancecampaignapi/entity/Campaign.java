@@ -1,5 +1,6 @@
 package com.ossovita.insurancecampaignapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ossovita.insurancecampaignapi.enums.CampaignStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,21 +8,21 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @Data
-@Table(name = "insurance_campaigns")
+@Table(name = "campaigns")
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class InsuranceCampaign {
+public class Campaign {
 
     @Id
-    @SequenceGenerator(name = "insurance_campaign_seq", allocationSize = 1)
-    @GeneratedValue(generator = "insurance_campaign_seq", strategy = GenerationType.SEQUENCE)
-    @Column(name = "insurance_campaign_id")
-    private long insuranceCampaignId;
+    @SequenceGenerator(name = "campaign_seq", allocationSize = 1)
+    @GeneratedValue(generator = "campaign_seq", strategy = GenerationType.SEQUENCE)
+    @Column(name = "campaign_id")
+    private long campaignId;
 
     @Column(name = "campaign_title")
     private String campaignTitle;
@@ -46,6 +47,10 @@ public class InsuranceCampaign {
 
     @Column(name = "campaign_category_id")
     private long campaignCategoryId;
+
+    @OneToMany(mappedBy = "campaign")
+    @JsonIgnore
+    private List<CampaignEvent> campaignEventList;
 
 
 }

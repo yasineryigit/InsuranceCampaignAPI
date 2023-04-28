@@ -52,7 +52,7 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     @JsonIgnore
-    private List<InsuranceCampaign> insuranceCampaignList;
+    private List<Campaign> campaignList;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_role_id", insertable = false, updatable = false)
@@ -61,8 +61,8 @@ public class User {
     @Column(name = "user_role_id")
     private long userRoleId;
 
-    private boolean enabled = true;
+    private boolean enabled;
 
-    private boolean locked = false;
+    private boolean locked;
 
 }
