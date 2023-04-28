@@ -26,13 +26,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findByUserEmail(String userEmail) {
         return userRepository.findByUserEmail(userEmail)
-                .orElseThrow(() -> new UserNotFoundException("UserEmail " + userEmail + " not found"));
+                .orElseThrow(() -> new UserNotFoundException("UserEmail: " + userEmail + " not found"));
     }
 
     @Override
     public User findByUserId(long userId) {
         return userRepository.findById(userId)
-                .orElseThrow(() -> new UserNotFoundException("UserId " + userId + " not found"));
+                .orElseThrow(() -> new UserNotFoundException("UserId: " + userId + " not found"));
     }
 
     @Override

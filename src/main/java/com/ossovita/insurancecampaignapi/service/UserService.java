@@ -4,8 +4,6 @@ import com.ossovita.insurancecampaignapi.entity.User;
 import com.ossovita.insurancecampaignapi.payload.request.UserRequest;
 import com.ossovita.insurancecampaignapi.payload.response.UserResponse;
 
-import java.util.Optional;
-
 public interface UserService {
 
     User findByUserEmail(String userEmail);
