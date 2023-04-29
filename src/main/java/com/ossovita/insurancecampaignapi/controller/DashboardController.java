@@ -2,12 +2,15 @@ package com.ossovita.insurancecampaignapi.controller;
 
 import com.ossovita.insurancecampaignapi.payload.response.StatisticsResponse;
 import com.ossovita.insurancecampaignapi.service.StatisticsService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/dashboard")
+@Api(value = "Dashboard Resource", description = "User can view statistics")
 public class DashboardController {
 
     StatisticsService statisticsService;
@@ -16,6 +19,7 @@ public class DashboardController {
         this.statisticsService = statisticsService;
     }
 
+    @ApiOperation(value = "Get statistics of classifieds", response = StatisticsResponse.class)
     @GetMapping("/classifieds/statistics")
     public StatisticsResponse getStatistics(){
         return statisticsService.getStatistics();

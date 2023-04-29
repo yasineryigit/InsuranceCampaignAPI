@@ -51,17 +51,17 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
                     SecurityContextHolder.getContext().setAuthentication(authentication);
 
-                    filterChain.doFilter(request, response);
                 } else {
                     response.sendError(HttpStatus.UNAUTHORIZED.value(), "Your account has been deactivated. Please contact with our customer support");
                 }
-
             }
-
 
         } catch (Exception e) {
             logger.error("AuthTokenFilter | doFilterInternal | Cannot set user authentication: {}", e.getMessage());
         }
+
+        filterChain.doFilter(request, response);
+
 
 
     }

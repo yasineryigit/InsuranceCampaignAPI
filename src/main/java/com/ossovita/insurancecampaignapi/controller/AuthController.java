@@ -10,6 +10,8 @@ import com.ossovita.insurancecampaignapi.payload.response.TokenRefreshResponse;
 import com.ossovita.insurancecampaignapi.security.CustomUserDetails;
 import com.ossovita.insurancecampaignapi.security.jwt.JwtUtils;
 import com.ossovita.insurancecampaignapi.security.service.RefreshTokenService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +33,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/auth")
 @RequiredArgsConstructor
 @Slf4j
+@Api(value = "Authentication Resource", description = "User can login and receive new token via refresh token")
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;
@@ -38,6 +41,7 @@ public class AuthController {
     private final RefreshTokenService refreshTokenService;
 
 
+    @ApiOperation(value = "Authenticate user and return AuthResponse object", response = AuthResponse.class)
     @PostMapping("/login")
     public ResponseEntity<Object> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         log.info("Login request received: " + loginRequest.toString());
@@ -75,6 +79,7 @@ public class AuthController {
     /*
        TODO fix | expired refresh token should return an exception and user should provide his credentials again to get new access token
    * */
+    @ApiOperation(value = "Refresh expired JWT token with valid refresh token", response = TokenRefreshResponse.class)
     @PostMapping("/refresh-token")
     public ResponseEntity<?> refreshToken(@Valid @RequestBody TokenRefreshRequest request) {
         String requestRefreshToken = request.getRefreshToken();
