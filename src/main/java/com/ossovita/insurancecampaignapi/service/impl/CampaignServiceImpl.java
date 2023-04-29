@@ -19,7 +19,6 @@ import com.ossovita.insurancecampaignapi.service.CampaignEventService;
 import com.ossovita.insurancecampaignapi.service.CampaignService;
 import com.ossovita.insurancecampaignapi.service.UserService;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -42,8 +41,6 @@ public class CampaignServiceImpl implements CampaignService {
         this.modelMapper = modelMapper;
     }
 
-    //admin, company
-    @PreAuthorize("hasAuthority('Admin') or hasAuthority('Company')")
     @Override
     public CampaignResponse createCampaign(CampaignDto campaignDto) {
         Campaign campaign = modelMapper.map(campaignDto, Campaign.class);
@@ -60,12 +57,10 @@ public class CampaignServiceImpl implements CampaignService {
         return modelMapper.map(savedCampaign, CampaignResponse.class);
     }
 
-    //admin, company
-    @PreAuthorize("hasAuthority('Admin') or hasAuthority('Company')")
+
     @Override
     public CampaignResponse deactivateCampaignStatus(long campaignId) {
-        Campaign campaign = campaignRepository.findById(campaignId)
-                .orElseThrow(() -> new IdNotFoundException("Campaign not found by given id: " + campaignId));
+        Campaign campaign = findById(campaignId);
         //Repetitive Campaign can not be updated
         setCampaignStatusIfNotRepetitive(campaign, CampaignStatus.DEACTIVATED);
         //The user can "Deactivate" the "Active" status or "Pending Approval" status.
@@ -78,8 +73,7 @@ public class CampaignServiceImpl implements CampaignService {
 
     }
 
-    //admin
-    @PreAuthorize("hasAuthority('Admin')")
+
     @Override
     public CampaignResponse updateCampaignByAdmin(UpdateCampaignByAdminRequest updateCampaignByAdminRequest) {
         Campaign updatedCampaign = updateCampaign(modelMapper.map(updateCampaignByAdminRequest, Campaign.class));
@@ -88,8 +82,7 @@ public class CampaignServiceImpl implements CampaignService {
         return modelMapper.map(campaignRepository.save(updatedCampaign), CampaignResponse.class);
     }
 
-    //company
-    @PreAuthorize("hasAuthority('Company')")
+
     @Override
     public CampaignResponse updateCampaignByCompany(UpdateCampaignByCompanyRequest updateCampaignByAdminRequest) {
         Campaign updatedCampaign = updateCampaign(modelMapper.map(updateCampaignByAdminRequest, Campaign.class));
@@ -98,20 +91,17 @@ public class CampaignServiceImpl implements CampaignService {
         return modelMapper.map(campaignRepository.save(updatedCampaign), CampaignResponse.class);
     }
 
-    //admin
-    @PreAuthorize("hasAuthority('Admin')")
+
     @Override
     public CampaignResponse updateCampaignStatus(UpdateCampaignStatusRequest updateCampaignStatusRequest) {
-        Campaign campaign = campaignRepository.findById(updateCampaignStatusRequest.getCampaignId())
-                .orElseThrow(() -> new IdNotFoundException("Campaign not found by given id: " + updateCampaignStatusRequest.getCampaignId()));
+        Campaign campaign = findById(updateCampaignStatusRequest.getCampaignId());
         //Repetitive Campaign can not be updated
         campaign = setCampaignStatusIfNotRepetitive(campaign, updateCampaignStatusRequest.getCampaignStatus());
         saveCampaignEvent(campaign, CampaignEventType.UPDATE);
         return modelMapper.map(campaignRepository.save(campaign), CampaignResponse.class);
     }
 
-    //admin
-    @PreAuthorize("hasAuthority('Admin')")
+
     @Override
     public List<CampaignResponse> updateMultipleCampaignStatus(UpdateMultipleCampaignStatus updateMultipleCampaignStatus) {
         List<Campaign> campaignList = campaignRepository.findAllById(updateMultipleCampaignStatus.getCampaignIdList());
@@ -125,8 +115,7 @@ public class CampaignServiceImpl implements CampaignService {
                 .map(campaign -> modelMapper.map(campaign, CampaignResponse.class)).toList();
     }
 
-    //admin
-    @PreAuthorize("hasAuthority('Admin')")
+
     @Override
     public StatisticsResponse getStatisticsForCampaigns() {
         return campaignRepository.getStatisticsForCampaigns();
@@ -135,8 +124,7 @@ public class CampaignServiceImpl implements CampaignService {
 
     public Campaign updateCampaign(Campaign campaignTemplate) {
         //check campaignId existence
-        Campaign campaign = campaignRepository.findById(campaignTemplate.getCampaignId())
-                .orElseThrow(() -> new IdNotFoundException("Campaign not found by given id: " + campaignTemplate.getCampaignId()));
+        Campaign campaign = findById(campaignTemplate.getCampaignId());
         setCampaignStatusIfNotRepetitive(campaign, campaignTemplate.getCampaignStatus());
         //check campainCategoryId existence
         campaign.setCampaignCategoryId(campaignCategoryService.findById(campaignTemplate.getCampaignCategoryId()).getCampaignCategoryId());
@@ -176,6 +164,12 @@ public class CampaignServiceImpl implements CampaignService {
                 .build();
 
         campaignEventService.save(campaignEvent);
+    }
+
+    @Override
+    public Campaign findById(long campaignId) {
+        return campaignRepository.findById(campaignId)
+                .orElseThrow(() -> new IdNotFoundException("Campaign not found by given id: " + campaignId));
     }
 
 

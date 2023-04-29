@@ -15,6 +15,7 @@ import java.util.List;
 public interface CampaignService {
     CampaignResponse createCampaign(CampaignDto campaignDto);
 
+    Campaign findById(long campaignId);
 
     CampaignResponse deactivateCampaignStatus(long campaignId);
 
