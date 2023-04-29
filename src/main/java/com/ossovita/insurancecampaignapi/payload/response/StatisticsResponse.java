@@ -2,6 +2,7 @@ package com.ossovita.insurancecampaignapi.payload.response;
 
 import lombok.Data;
 
+@Data
 public class StatisticsResponse {
 
     private long activeCampaignCount;

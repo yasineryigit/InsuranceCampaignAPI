@@ -18,12 +18,14 @@ public interface CampaignRepository extends JpaRepository<Campaign, Long> {
 
 
     @Query("SELECT new com.ossovita.insurancecampaignapi.payload.response.StatisticsResponse(" +
-            "COUNT(CASE WHEN campaign.campaignStatus = 'ACTIVE' THEN 1 ELSE 0 END)," +
-            "COUNT(CASE WHEN campaign.campaignStatus = 'PENDING_APPROVAL' THEN 1 ELSE 0 END)," +
-            "COUNT(CASE WHEN campaign.campaignStatus = 'DEACTIVATED' THEN 1 ELSE 0 END)," +
-            "COUNT(CASE WHEN campaign.campaignStatus = 'REPETITIVE' THEN 1 ELSE 0 END)" +
+            "SUM(CASE WHEN campaign.campaignStatus = 'ACTIVE' THEN 1 ELSE 0 END)," +
+            "SUM(CASE WHEN campaign.campaignStatus = 'PENDING_APPROVAL' THEN 1 ELSE 0 END)," +
+            "SUM(CASE WHEN campaign.campaignStatus = 'DEACTIVATED' THEN 1 ELSE 0 END)," +
+            "SUM(CASE WHEN campaign.campaignStatus = 'REPETITIVE' THEN 1 ELSE 0 END)" +
             ") FROM Campaign campaign")
     StatisticsResponse getStatisticsForCampaigns();
+
+
 
 
 
