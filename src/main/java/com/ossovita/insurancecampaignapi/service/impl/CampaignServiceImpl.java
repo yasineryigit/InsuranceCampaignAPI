@@ -19,6 +19,7 @@ import com.ossovita.insurancecampaignapi.service.CampaignEventService;
 import com.ossovita.insurancecampaignapi.service.CampaignService;
 import com.ossovita.insurancecampaignapi.service.UserService;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -42,6 +43,7 @@ public class CampaignServiceImpl implements CampaignService {
     }
 
     //admin, company
+    @PreAuthorize("hasAuthority('Admin') or hasAuthority('Company')")
     @Override
     public CampaignResponse createCampaign(CampaignDto campaignDto) {
         Campaign campaign = modelMapper.map(campaignDto, Campaign.class);
@@ -59,6 +61,7 @@ public class CampaignServiceImpl implements CampaignService {
     }
 
     //admin, company
+    @PreAuthorize("hasAuthority('Admin') or hasAuthority('Company')")
     @Override
     public CampaignResponse deactivateCampaignStatus(long campaignId) {
         Campaign campaign = campaignRepository.findById(campaignId)
@@ -76,6 +79,7 @@ public class CampaignServiceImpl implements CampaignService {
     }
 
     //admin
+    @PreAuthorize("hasAuthority('Admin')")
     @Override
     public CampaignResponse updateCampaignByAdmin(UpdateCampaignByAdminRequest updateCampaignByAdminRequest) {
         Campaign updatedCampaign = updateCampaign(modelMapper.map(updateCampaignByAdminRequest, Campaign.class));
@@ -85,6 +89,7 @@ public class CampaignServiceImpl implements CampaignService {
     }
 
     //company
+    @PreAuthorize("hasAuthority('Company')")
     @Override
     public CampaignResponse updateCampaignByCompany(UpdateCampaignByCompanyRequest updateCampaignByAdminRequest) {
         Campaign updatedCampaign = updateCampaign(modelMapper.map(updateCampaignByAdminRequest, Campaign.class));
@@ -94,6 +99,7 @@ public class CampaignServiceImpl implements CampaignService {
     }
 
     //admin
+    @PreAuthorize("hasAuthority('Admin')")
     @Override
     public CampaignResponse updateCampaignStatus(UpdateCampaignStatusRequest updateCampaignStatusRequest) {
         Campaign campaign = campaignRepository.findById(updateCampaignStatusRequest.getCampaignId())
@@ -104,6 +110,8 @@ public class CampaignServiceImpl implements CampaignService {
         return modelMapper.map(campaignRepository.save(campaign), CampaignResponse.class);
     }
 
+    //admin
+    @PreAuthorize("hasAuthority('Admin')")
     @Override
     public List<CampaignResponse> updateMultipleCampaignStatus(UpdateMultipleCampaignStatus updateMultipleCampaignStatus) {
         List<Campaign> campaignList = campaignRepository.findAllById(updateMultipleCampaignStatus.getCampaignIdList());
@@ -117,6 +125,8 @@ public class CampaignServiceImpl implements CampaignService {
                 .map(campaign -> modelMapper.map(campaign, CampaignResponse.class)).toList();
     }
 
+    //admin
+    @PreAuthorize("hasAuthority('Admin')")
     @Override
     public StatisticsResponse getStatisticsForCampaigns() {
         return campaignRepository.getStatisticsForCampaigns();
@@ -145,7 +155,6 @@ public class CampaignServiceImpl implements CampaignService {
             throw new RepetitiveCampaignException("Repetitive Campaign with id: " + campaign.getCampaignId() + " cannot be updated");
         }
     }
-
 
 
     public Campaign setCampaignStatusDependsOnRequiresApprovement(Campaign campaign) {

@@ -48,4 +48,12 @@ public class UserServiceImpl implements UserService {
                 .build();
         return modelMapper.map(userRepository.save(user), UserResponse.class);
     }
+
+
+    @Override
+    public User updateUserEnabled(long userId, boolean enabled) {
+        User userInDB = findByUserId(userId);
+        userInDB.setEnabled(enabled);
+        return userRepository.save(userInDB);
+    }
 }

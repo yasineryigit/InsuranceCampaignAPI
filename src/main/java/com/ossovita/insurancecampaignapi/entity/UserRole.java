@@ -26,7 +26,8 @@ public class UserRole {
     @Column(name = "user_role")
     private String userRole;
 
-    @OneToMany(mappedBy = "userRole", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "userRole")
+    @JsonIgnore
     private List<User> users;
 
 

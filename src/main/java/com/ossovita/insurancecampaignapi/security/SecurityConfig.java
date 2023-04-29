@@ -43,7 +43,7 @@ public class SecurityConfig {
                 .csrf().disable()
                 .cors()
                 .and()
-                .authorizeRequests(auth -> {
+                .authorizeRequests(auth -> {//TODO | remove
                     auth.anyRequest().permitAll();
                 })
                 .formLogin().disable()
@@ -69,8 +69,6 @@ public class SecurityConfig {
     public AuthTokenFilter authenticationJwtTokenFilter(JwtUtils jwtUtils, CustomUserDetailsService customUserDetailsService) {
         return new AuthTokenFilter(jwtUtils, customUserDetailsService);
     }
-
-
 
 
 }

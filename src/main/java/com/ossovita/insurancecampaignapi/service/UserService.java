@@ -11,4 +11,6 @@ public interface UserService {
     User findByUserId(long userId);
 
     UserResponse createUser(UserRequest userRequest);
+
+    User updateUserEnabled(long userId, boolean status);
 }

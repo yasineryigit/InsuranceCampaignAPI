@@ -54,7 +54,7 @@ public class User {
     @JsonIgnore
     private List<Campaign> campaignList;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "user_role_id", insertable = false, updatable = false)
     private UserRole userRole;
 

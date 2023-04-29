@@ -4,6 +4,7 @@ import com.ossovita.insurancecampaignapi.security.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -40,13 +41,21 @@ public class AuthTokenFilter extends OncePerRequestFilter {
                 String userEmail = jwtUtils.getUserEmailFromJwtToken(jwt);
 
                 UserDetails userDetails = customUserDetailsService.loadUserByUsername(userEmail);
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                        userDetails, null, userDetails.getAuthorities()
-                );
 
-                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                if (userDetails.isEnabled() && userDetails.isAccountNonLocked()) {
+                    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                            userDetails, null, userDetails.getAuthorities()
+                    );
 
-                SecurityContextHolder.getContext().setAuthentication(authentication);
+                    authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+
+                    filterChain.doFilter(request, response);
+                } else {
+                    response.sendError(HttpStatus.UNAUTHORIZED.value(), "Your account has been deactivated. Please contact with our customer support");
+                }
+
             }
 
 
@@ -54,7 +63,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
             logger.error("AuthTokenFilter | doFilterInternal | Cannot set user authentication: {}", e.getMessage());
         }
 
-        filterChain.doFilter(request, response);
+
     }
 
     //parse jwt from the httpservletrequest
