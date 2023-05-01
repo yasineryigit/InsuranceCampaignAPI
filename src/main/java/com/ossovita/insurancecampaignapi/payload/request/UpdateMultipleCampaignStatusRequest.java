@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Data
-public class UpdateMultipleCampaignStatus {
+public class UpdateMultipleCampaignStatusRequest {
 
     @NotNull
     List<Long> campaignIdList;

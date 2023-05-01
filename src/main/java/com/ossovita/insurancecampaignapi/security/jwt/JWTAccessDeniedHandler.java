@@ -20,4 +20,6 @@ public class JWTAccessDeniedHandler implements AccessDeniedHandler {
         response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         response.getOutputStream().println("{ \"error\": \"" + accessDeniedException.getMessage() + "\" }");
     }
+
+
 }

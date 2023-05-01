@@ -1,4 +1,4 @@
-package com.ossovita.insurancecampaignapi.service.impl;
+package com.ossovita.insurancecampaignapi.service;
 
 import com.ossovita.insurancecampaignapi.payload.response.StatisticsResponse;
 import com.ossovita.insurancecampaignapi.service.CampaignService;

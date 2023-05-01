@@ -1,14 +1,17 @@
 package com.ossovita.insurancecampaignapi.security.jwt;
 
 import com.ossovita.insurancecampaignapi.security.CustomUserDetailsService;
-import lombok.RequiredArgsConstructor;
+import com.ossovita.insurancecampaignapi.utilities.config.RouteValidator;
+import lombok.NoArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -19,20 +22,30 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-@RequiredArgsConstructor
 public class AuthTokenFilter extends OncePerRequestFilter {
 
     private static final Logger logger = LoggerFactory.getLogger(AuthTokenFilter.class);
 
-    private final JwtUtils jwtUtils;
+    @Autowired
+    private JwtUtils jwtUtils;
 
-    private final CustomUserDetailsService customUserDetailsService;
+    @Autowired
+    private CustomUserDetailsService customUserDetailsService;
+
+    @Autowired
+    private RouteValidator routeValidator;
 
 
     //if there is validated token, set authenticated
     //if no, let the request continue to the target destination
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+
+        if (!routeValidator.isSecured.test(request)) { // Check if the request is for a non-secured URL
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         try {
             String jwt = parseJwt(request);
             logger.info("AuthTokenFilter | doFilterInternal | jwt: {}", jwt);
@@ -52,7 +65,8 @@ public class AuthTokenFilter extends OncePerRequestFilter {
                     SecurityContextHolder.getContext().setAuthentication(authentication);
 
                 } else {
-                    response.sendError(HttpStatus.UNAUTHORIZED.value(), "Your account has been deactivated. Please contact with our customer support");
+                    response.sendError(HttpStatus.UNAUTHORIZED.value(), "Your account has been deactivated. Please contact our customer support.");
+                    return;
                 }
             }
 
@@ -61,8 +75,6 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         }
 
         filterChain.doFilter(request, response);
-
-
 
     }
 

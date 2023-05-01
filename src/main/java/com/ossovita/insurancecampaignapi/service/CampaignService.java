@@ -1,19 +1,18 @@
 package com.ossovita.insurancecampaignapi.service;
 
 import com.ossovita.insurancecampaignapi.entity.Campaign;
-import com.ossovita.insurancecampaignapi.enums.CampaignStatus;
-import com.ossovita.insurancecampaignapi.payload.CampaignDto;
+import com.ossovita.insurancecampaignapi.payload.request.CampaignRequest;
 import com.ossovita.insurancecampaignapi.payload.request.UpdateCampaignByAdminRequest;
 import com.ossovita.insurancecampaignapi.payload.request.UpdateCampaignByCompanyRequest;
 import com.ossovita.insurancecampaignapi.payload.request.UpdateCampaignStatusRequest;
-import com.ossovita.insurancecampaignapi.payload.request.UpdateMultipleCampaignStatus;
+import com.ossovita.insurancecampaignapi.payload.request.UpdateMultipleCampaignStatusRequest;
 import com.ossovita.insurancecampaignapi.payload.response.CampaignResponse;
 import com.ossovita.insurancecampaignapi.payload.response.StatisticsResponse;
 
 import java.util.List;
 
 public interface CampaignService {
-    CampaignResponse createCampaign(CampaignDto campaignDto);
+    CampaignResponse createCampaign(CampaignRequest campaignRequest);
 
     Campaign findById(long campaignId);
 
@@ -25,7 +24,7 @@ public interface CampaignService {
 
     CampaignResponse updateCampaignStatus(UpdateCampaignStatusRequest updateCampaignStatusRequest);
 
-    List<CampaignResponse> updateMultipleCampaignStatus(UpdateMultipleCampaignStatus updateMultipleCampaignStatus);
+    List<CampaignResponse> updateMultipleCampaignStatus(UpdateMultipleCampaignStatusRequest updateMultipleCampaignStatusRequest);
 
     StatisticsResponse getStatisticsForCampaigns();
 }

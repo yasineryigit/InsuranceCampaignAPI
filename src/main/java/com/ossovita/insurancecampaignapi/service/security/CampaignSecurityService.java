@@ -1,6 +1,6 @@
 package com.ossovita.insurancecampaignapi.service.security;
 
-import com.ossovita.insurancecampaignapi.entity.User;
+import com.ossovita.insurancecampaignapi.security.CustomUserDetails;
 import com.ossovita.insurancecampaignapi.service.CampaignService;
 import org.springframework.stereotype.Service;
 
@@ -13,14 +13,14 @@ public class CampaignSecurityService {
         this.campaignService = campaignService;
     }
 
-    public boolean isAllowedToCreateCampaign(long userId, User loggedInUser) {
+    public boolean isAllowedToCreateCampaign(long userId, CustomUserDetails loggedInUser) {
         boolean isAllowed = false;
         //allow admin all the time
-        if (loggedInUser.getUserRole().getUserRole().equals("Admin")) {
+        if (loggedInUser.getUser().getUserRole().getUserRole().equals("Admin")) {
             isAllowed = true;
             //allow company if and only if user Id belongs itself
-        } else if (loggedInUser.getUserRole().getUserRole().equals("Company")) {
-            isAllowed = (userId == loggedInUser.getUserId());
+        } else if (loggedInUser.getUser().getUserRole().getUserRole().equals("Company")) {
+            isAllowed = (userId == loggedInUser.getUser().getUserId());
         }
 
         return isAllowed;
@@ -28,13 +28,13 @@ public class CampaignSecurityService {
     }
 
 
-    public boolean isAllowedToUpdateCampaign(long campaignId, User loggedInUser) {
+    public boolean isAllowedToUpdateCampaign(long campaignId, CustomUserDetails loggedInUser) {
         boolean isAllowed = false;
         //allow admin all the time
-        if (loggedInUser.getUserRole().getUserRole().equals("Admin")) {
+        if (loggedInUser.getUser().getUserRole().getUserRole().equals("Admin")) {
             isAllowed = true;
-        } else if (loggedInUser.getUserRole().getUserRole().equals("Company")) {
-            isAllowed = (campaignService.findById(campaignId).getUserId() == loggedInUser.getUserId());
+        } else if (loggedInUser.getUser().getUserRole().getUserRole().equals("Company")) {
+            isAllowed = (campaignService.findById(campaignId).getUserId() == loggedInUser.getUser().getUserId());
         }
         return isAllowed;
     }

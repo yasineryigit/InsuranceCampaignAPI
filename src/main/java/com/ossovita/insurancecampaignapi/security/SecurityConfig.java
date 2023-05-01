@@ -43,12 +43,11 @@ public class SecurityConfig {
                 .csrf().disable()
                 .cors()
                 .and()
-                .authorizeRequests(auth -> {//TODO | remove
-                    auth.anyRequest().permitAll();
-                })
+
                 .formLogin().disable()
                 .httpBasic().disable()
-                .exceptionHandling().accessDeniedHandler(accessDeniedHandler)//assign custom access denied handler
+                .exceptionHandling()
+                .accessDeniedHandler(accessDeniedHandler)//assign custom access denied handler
                 .authenticationEntryPoint(authenticationEntryPoint)
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -67,7 +66,7 @@ public class SecurityConfig {
 
     @Bean
     public AuthTokenFilter authenticationJwtTokenFilter(JwtUtils jwtUtils, CustomUserDetailsService customUserDetailsService) {
-        return new AuthTokenFilter(jwtUtils, customUserDetailsService);
+        return new AuthTokenFilter();
     }
 
 

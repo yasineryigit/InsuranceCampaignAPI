@@ -1,4 +1,4 @@
-package com.ossovita.insurancecampaignapi.service.impl;
+package com.ossovita.insurancecampaignapi.service;
 
 import com.ossovita.insurancecampaignapi.entity.CampaignCategory;
 import com.ossovita.insurancecampaignapi.error.exception.IdNotFoundException;

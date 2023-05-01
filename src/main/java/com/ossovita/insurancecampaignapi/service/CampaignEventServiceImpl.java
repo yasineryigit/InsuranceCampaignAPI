@@ -1,4 +1,4 @@
-package com.ossovita.insurancecampaignapi.service.impl;
+package com.ossovita.insurancecampaignapi.service;
 
 import com.ossovita.insurancecampaignapi.entity.CampaignEvent;
 import com.ossovita.insurancecampaignapi.repository.CampaignEventRepository;

@@ -1,14 +1,13 @@
 package com.ossovita.insurancecampaignapi.controller;
 
-import com.ossovita.insurancecampaignapi.entity.Campaign;
-import com.ossovita.insurancecampaignapi.payload.CampaignDto;
+import com.ossovita.insurancecampaignapi.payload.request.CampaignRequest;
 import com.ossovita.insurancecampaignapi.payload.request.UpdateCampaignByAdminRequest;
 import com.ossovita.insurancecampaignapi.payload.request.UpdateCampaignByCompanyRequest;
 import com.ossovita.insurancecampaignapi.payload.request.UpdateCampaignStatusRequest;
-import com.ossovita.insurancecampaignapi.payload.request.UpdateMultipleCampaignStatus;
-import com.ossovita.insurancecampaignapi.payload.response.AuthResponse;
+import com.ossovita.insurancecampaignapi.payload.request.UpdateMultipleCampaignStatusRequest;
 import com.ossovita.insurancecampaignapi.payload.response.CampaignResponse;
 import com.ossovita.insurancecampaignapi.service.CampaignService;
+import com.ossovita.insurancecampaignapi.service.security.CampaignSecurityService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -23,26 +22,28 @@ import java.util.List;
 public class CampaignController {
 
     CampaignService campaignService;
+    CampaignSecurityService campaignSecurityService;
 
-    public CampaignController(CampaignService campaignService) {
+    public CampaignController(CampaignService campaignService, CampaignSecurityService campaignSecurityService) {
         this.campaignService = campaignService;
+        this.campaignSecurityService = campaignSecurityService;
     }
-
 
     //admin, company
     @ApiOperation(value = "Create a new campaign", response = CampaignResponse.class)
-    @PreAuthorize("@campaignSecurityService.isAllowedToCreateCampaign(#campaignDto.userId,principal)")
+    @PreAuthorize("@campaignSecurityService.isAllowedToCreateCampaign(#campaignRequest.userId,principal)")
     @PostMapping("/create")
-    public CampaignResponse createCampaign(@Validated @RequestBody CampaignDto campaignDto) {
-        return campaignService.createCampaign(campaignDto);
+    public CampaignResponse createCampaign(@Validated @RequestBody CampaignRequest campaignRequest) {
+        return campaignService.createCampaign(campaignRequest);
     }
+
 
     //admin
     @ApiOperation(value = "Update status of multiple campaigns and return list of CampaignResponse objects", response = List.class)
     @PreAuthorize("hasAuthority('Admin')")
     @PutMapping("/update-multiple-campaign-status")
-    public List<CampaignResponse> updateMultipleCampaignStatus(@Validated @RequestBody UpdateMultipleCampaignStatus updateMultipleCampaignStatus){
-        return campaignService.updateMultipleCampaignStatus(updateMultipleCampaignStatus);
+    public List<CampaignResponse> updateMultipleCampaignStatus(@Validated @RequestBody UpdateMultipleCampaignStatusRequest updateMultipleCampaignStatusRequest){
+        return campaignService.updateMultipleCampaignStatus(updateMultipleCampaignStatusRequest);
     }
 
     //admin
