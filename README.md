@@ -49,6 +49,14 @@ http://localhost:8086/api/1.0/swagger-ui.html
 | `POST` | `/api/1.0/auth/login` | Authenticate user and return AuthResponse object |
 | `POST` | `/api/1.0/auth/refresh-token` | Refresh expired JWT token with valid refresh token |
 
+### User:
+
+| Request | Access Point | Explanation                |
+| :-------- | :------- | :------------------------- |
+| `POST` | `/api/1.0/user/create` | Create a new user and return UserResponse object |
+| `PUT` | `/api/1.0/user/update-user-enabled` | Update user's enabled status |
+
+
 ### Campaign:
 
 | Request | Access Point | Explanation                |
