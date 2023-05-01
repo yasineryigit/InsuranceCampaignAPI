@@ -5,7 +5,7 @@ This project is a proof-of-concept (POC) that allows users to create and manage 
 
 As part of the POC, users can input campaign information, including the campaign title, description, and category. The campaign lifecycle and rules are as follows:
 
-For 'TSS', 'ÖSS', and 'Other' categories, campaigns are set to "Pending Approval" status upon initial submission. For other categories, campaigns are set to "Active." In other words, campaigns in these categories must be approved before they can be published.
+For 'Complementary Health Insurance', 'Private Health Insurance', and 'Other' categories, campaigns are set to "Pending Approval" status upon initial submission. For 'Life Insurance' category, campaigns are set to "Active." In other words, campaigns in some categories must be approved before they can be published.
 When a campaign is submitted with the same category, title, and description as an existing campaign, it is flagged as a repetitive and cannot be updated.
 A campaign that is "Pending Approval" will be set to "Active" once approved. 
 Users can deactivate "Active" or "Pending Approval" campaigns.
