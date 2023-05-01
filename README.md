@@ -11,10 +11,17 @@ A campaign that is "Pending Approval" will be set to "Active" once approved.
 Users can deactivate "Active" or "Pending Approval" campaigns.
 For this project,  JWT authentication and authorization implemented. As a result, only authenticated and authorized users will be able to submit, update, and deactivate campaigns.
 
-
-
-
-
+### Tech
+- Spring Boot
+- Spring Security 
+- JWT Authentication/Authorization
+- Docker
+- Validation
+- Custom Error Handler (Multi-Language Messages)
+- Lombok
+- SwaggerUI
+- PostgreSQL
+- Timeout logging
 
 
 ## Installation
@@ -34,6 +41,15 @@ docker-compose -f common.yml -f docker-compose.yml up
 http://localhost:8086/api/1.0/swagger-ui.html
 ```
 
+```bash
+'campaignCategoryId' example values:
+
+1: Complementary Health Insurance
+2: Private Health Insurance
+3: Life Insurance
+4: Others
+```
+
 ### Basic use cases
 #### 1) Signup a new user
 #### 2) Login with the created user to get authentication token
@@ -44,49 +60,38 @@ http://localhost:8086/api/1.0/swagger-ui.html
 ## Endpoints
 ### Auth:
 
-| Request | Access Point | Explanation                |
-| :-------- | :------- | :------------------------- |
-| `POST` | `/api/1.0/auth/login` | Authenticate user and return AuthResponse object |
-| `POST` | `/api/1.0/auth/refresh-token` | Refresh expired JWT token with valid refresh token |
+| Request | Access Point | Explanation                | User Role |
+| :-------- | :------- | :------------------------- |:----------|
+| `POST` | `/api/1.0/auth/login` | Authenticate user and return AuthResponse object | All |
+| `POST` | `/api/1.0/auth/refresh-token` | Refresh expired JWT token with valid refresh token | All |
 
 ### User:
 
-| Request | Access Point | Explanation                |
-| :-------- | :------- | :------------------------- |
-| `POST` | `/api/1.0/users/create` | Create a new user and return UserResponse object |
-| `PUT` | `/api/1.0/users/update-user-enabled` | Update user's enabled status |
+| Request | Access Point | Explanation                | User Role |
+| :-------- | :------- | :------------------------- |:-----------|
+| `POST` | `/api/1.0/users/create` | Create a new user and return UserResponse object | All |
+| `PUT` | `/api/1.0/users/update-user-enabled` | Update user's enabled status | Admin |
 
 
 ### Campaign:
 
-| Request | Access Point | Explanation                |
-| :-------- | :------- | :------------------------- |
-| `POST` | `/api/1.0/campaigns/create` | Create a new campaign |
-| `PUT` | `/api/1.0/campaigns/deactivate-campaign-status` | Deactivate campaign status by campaign ID |
-| `PUT` | `/api/1.0/campaigns/update-campaign-by-admin` | Update campaign by admin and return CampaignResponse object |
-| `PUT` | `/api/1.0/campaigns/update-campaign-by-company` | Update campaign by company |
-| `PUT` | `/api/1.0/campaigns/update-campaign-status` | Update campaign status by campaign ID and status |
-| `PUT` | `/api/1.0/campaigns/update-multiple-campaign-status` | Update status of multiple campaigns and return list of CampaignResponse objects |
+| Request | Access Point | Explanation                | User Role   |
+| :-------- | :------- | :------------------------- |:--------------|
+| `POST` | `/api/1.0/campaigns/create` | Create a new campaign | Admin, Company |
+| `PUT` | `/api/1.0/campaigns/deactivate-campaign-status` | Deactivate campaign status by campaign ID | Admin, Company |
+| `PUT` | `/api/1.0/campaigns/update-campaign-by-admin` | Update campaign by admin and return CampaignResponse object | Admin |
+| `PUT` | `/api/1.0/campaigns/update-campaign-by-company` | Update campaign by company | Admin, Company |
+| `PUT` | `/api/1.0/campaigns/update-campaign-status` | Update campaign status by campaign ID and status | Admin |
+| `PUT` | `/api/1.0/campaigns/update-multiple-campaign-status` | Update status of multiple campaigns and return list of CampaignResponse objects | Admin |
 
 ### Dashboard:
 
-| Request | Access Point | Explanation                |
-| :-------- | :------- | :------------------------- |
-| `GET` | `/api/1.0/dashboard/classifieds/statistics` | Get statistics of classifieds |
+| Request | Access Point | Explanation                | User Role   |
+| :-------- | :------- | :------------------------- |:--------------|
+| `GET` | `/api/1.0/dashboard/classifieds/statistics` | Get statistics of classifieds | Admin |
 
 
 
-
-#### Considerations During the Writing of the Project
-
- - Implemented the code to be clean, understandable, and easy to read while following the layered architecture.
- - Designed the project according to monolithic architecture.
- - Utilized Exception Handling throughout the codebase.
- - Followed programming principles, such as SOLID.
-
-#### Future Work
-- Implement a CI/CD pipeline to enable continuous integration and deployment.
-- Implement a suitable Frontend to enhance the user experience.
 
 ## Screenshoots
 
@@ -144,8 +149,19 @@ http://localhost:8086/api/1.0/swagger-ui.html
 
 ### Timeout Logging
 
-<img src="https://raw.githubusercontent.com/yasineryigit/InsuranceCampaignAPI/master/docs/screenshoots/Timeout.png" width="800" height="400" />
+<img src="https://raw.githubusercontent.com/yasineryigit/InsuranceCampaignAPI/master/docs/screenshoots/Timeout.png" width="800" height="24" />
 
+
+#### Considerations During the Writing of the Project
+
+ - Implemented the code to be clean, understandable, and easy to read while following the layered architecture.
+ - Designed the project according to monolithic architecture.
+ - Utilized Exception Handling throughout the codebase.
+ - Followed programming principles, such as SOLID.
+
+#### Future Work
+- Implement a CI/CD pipeline to enable continuous integration and deployment.
+- Implement a suitable Frontend to enhance the user experience.
 
 
 
