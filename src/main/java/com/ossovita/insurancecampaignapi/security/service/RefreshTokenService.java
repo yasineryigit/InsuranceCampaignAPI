@@ -1,6 +1,7 @@
 package com.ossovita.insurancecampaignapi.security.service;
 
 import com.ossovita.insurancecampaignapi.entity.RefreshToken;
+import com.ossovita.insurancecampaignapi.error.exception.RefreshTokenException;
 import com.ossovita.insurancecampaignapi.repository.RefreshTokenRepository;
 import com.ossovita.insurancecampaignapi.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -36,13 +37,15 @@ public class RefreshTokenService {
         return refreshTokenRepository.save(refreshToken);
     }
 
-    //if token expired, then delete
+    //if refresh-token expired delete and throw error ()
     public RefreshToken verifyExpiration(RefreshToken token) {
 
         if (token.getExpiryDate().compareTo(Instant.now()) < 0) {
             refreshTokenRepository.delete(token);
+            throw new RefreshTokenException("Refresh token expired");
         }
 
         return token;
     }
+
 }

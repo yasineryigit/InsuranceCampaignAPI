@@ -1,6 +1,9 @@
 package com.ossovita.insurancecampaignapi.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -8,6 +11,9 @@ import java.time.Instant;
 @Entity
 @Table(name = "refresh_tokens")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class RefreshToken {
 
     @Id

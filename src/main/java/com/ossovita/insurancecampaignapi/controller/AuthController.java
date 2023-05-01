@@ -76,9 +76,7 @@ public class AuthController {
         return ResponseEntity.ok(authResponse);
     }
 
-    /*
-       TODO fix | expired refresh token should return an exception and user should provide his credentials again to get new access token
-   * */
+
     @ApiOperation(value = "Refresh expired JWT token with valid refresh token", response = TokenRefreshResponse.class)
     @PostMapping("/refresh-token")
     public ResponseEntity<?> refreshToken(@Valid @RequestBody TokenRefreshRequest request) {

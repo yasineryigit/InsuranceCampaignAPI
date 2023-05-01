@@ -2,7 +2,7 @@ package com.ossovita.insurancecampaignapi.security.jwt;
 
 import com.ossovita.insurancecampaignapi.security.CustomUserDetailsService;
 import com.ossovita.insurancecampaignapi.utilities.config.RouteValidator;
-import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
-import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -21,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-
+@Slf4j
 public class AuthTokenFilter extends OncePerRequestFilter {
 
     private static final Logger logger = LoggerFactory.getLogger(AuthTokenFilter.class);
@@ -72,6 +71,8 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
         } catch (Exception e) {
             logger.error("AuthTokenFilter | doFilterInternal | Cannot set user authentication: {}", e.getMessage());
+            response.sendError(HttpStatus.BAD_REQUEST.value(), e.getMessage());
+            return;
         }
 
         filterChain.doFilter(request, response);
