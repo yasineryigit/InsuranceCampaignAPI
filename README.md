@@ -127,10 +127,6 @@ http://localhost:8086/api/1.0/swagger-ui.html
 
 <img src="https://raw.githubusercontent.com/yasineryigit/InsuranceCampaignAPI/master/docs/screenshoots/CampaignsUpdateCampaignByCompany.png" width="800" height="400" />
 
-#### Update Campaign By Company
-
-<img src="https://raw.githubusercontent.com/yasineryigit/InsuranceCampaignAPI/master/docs/screenshoots/CampaignsUpdateCampaignByCompany.png" width="800" height="400" />
-
 #### Update Campaign Status
 
 <img src="https://raw.githubusercontent.com/yasineryigit/InsuranceCampaignAPI/master/docs/screenshoots/CampaignsUpdateCampaignStatus.png" width="800" height="400" />
