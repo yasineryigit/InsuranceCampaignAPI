@@ -88,4 +88,79 @@ http://localhost:8086/api/1.0/swagger-ui.html
 - Implement a CI/CD pipeline to enable continuous integration and deployment.
 - Implement a suitable Frontend to enhance the user experience.
 
+## Screenshoots
+
+#### Swagger UI
+
+<img src="https://raw.githubusercontent.com/yasineryigit/InsuranceCampaignAPI/master/docs/screenshoots/SwaggerUI.png" width="800" height="400" />
+
+#### Create Company User
+
+<img src="https://raw.githubusercontent.com/yasineryigit/InsuranceCampaignAPI/master/docs/screenshoots/UsersCreate.png" width="800" height="400" />
+
+#### Login as Company
+
+<img src="https://raw.githubusercontent.com/yasineryigit/InsuranceCampaignAPI/master/docs/screenshoots/AuthLogin.png" width="800" height="400" />
+
+#### Refresh Token
+
+<img src="https://raw.githubusercontent.com/yasineryigit/InsuranceCampaignAPI/master/docs/screenshoots/AuthRefreshToken.png" width="800" height="400" />
+
+#### Update User Enabled
+
+<img src="https://raw.githubusercontent.com/yasineryigit/InsuranceCampaignAPI/master/docs/screenshoots/UsersUpdateUserEnabled.png" width="800" height="400" />
+
+#### Create Campaign
+
+<img src="https://raw.githubusercontent.com/yasineryigit/InsuranceCampaignAPI/master/docs/screenshoots/CampaignsCreate.png" width="800" height="400" />
+
+#### Update Campaign By Admin
+
+<img src="https://raw.githubusercontent.com/yasineryigit/InsuranceCampaignAPI/master/docs/screenshoots/CampaignsUpdateCampaignByAdmin.png" width="800" height="400" />
+
+#### Update Campaign By Company
+
+<img src="https://raw.githubusercontent.com/yasineryigit/InsuranceCampaignAPI/master/docs/screenshoots/CampaignsUpdateCampaignByCompany.png" width="800" height="400" />
+
+#### Update Campaign By Company
+
+<img src="https://raw.githubusercontent.com/yasineryigit/InsuranceCampaignAPI/master/docs/screenshoots/CampaignsUpdateCampaignByCompany.png" width="800" height="400" />
+
+#### Update Campaign Status
+
+<img src="https://raw.githubusercontent.com/yasineryigit/InsuranceCampaignAPI/master/docs/screenshoots/CampaignsUpdateCampaignStatus.png" width="800" height="400" />
+
+#### Update Multiple Campaign Status
+
+<img src="https://raw.githubusercontent.com/yasineryigit/InsuranceCampaignAPI/master/docs/screenshoots/CampaignsUpdateMultipleCampaignStatus.png" width="800" height="400" />
+
+#### Deactivate Campaign Status
+
+<img src="https://raw.githubusercontent.com/yasineryigit/InsuranceCampaignAPI/master/docs/screenshoots/CampaignsDeactivateCampaignStatus.png" width="800" height="400" />
+
+#### Statistics
+
+<img src="https://raw.githubusercontent.com/yasineryigit/InsuranceCampaignAPI/master/docs/screenshoots/Statistics.png" width="800" height="400" />
+
+### Timeout Logging
+
+<img src="https://raw.githubusercontent.com/yasineryigit/InsuranceCampaignAPI/master/docs/screenshoots/Timeout.png" width="800" height="400" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
