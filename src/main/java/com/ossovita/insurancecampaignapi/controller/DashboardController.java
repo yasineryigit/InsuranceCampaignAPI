@@ -4,6 +4,7 @@ import com.ossovita.insurancecampaignapi.payload.response.StatisticsResponse;
 import com.ossovita.insurancecampaignapi.service.StatisticsService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +25,8 @@ public class DashboardController {
     @ApiOperation(value = "Get statistics of classifieds", response = StatisticsResponse.class)
     @PreAuthorize("hasAuthority('Admin')")
     @GetMapping("/classifieds/statistics")
-    public StatisticsResponse getStatistics() {
-        return statisticsService.getStatistics();
+    public ResponseEntity<StatisticsResponse> getStatistics() {
+        StatisticsResponse statisticsResponse = statisticsService.getStatistics();
+        return ResponseEntity.ok(statisticsResponse);
     }
 }

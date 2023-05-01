@@ -1,6 +1,7 @@
 package com.ossovita.insurancecampaignapi.payload.request;
 
 import com.ossovita.insurancecampaignapi.enums.CampaignStatus;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.Min;
@@ -22,6 +23,7 @@ public class UpdateCampaignByCompanyRequest {
 
     @NotNull(message = "{ossovita.constraint.field.NotNull.message}")
     @Min(value = 1, message = "{ossovita.constraint.id.validation.message}")
+    @ApiModelProperty(value = "1: Complementary Health Insurance | 2: Private Health Insurance | 3: Life Insurance | 4: Others", example = "2", required = true)
     private long campaignCategoryId;
 
 }
