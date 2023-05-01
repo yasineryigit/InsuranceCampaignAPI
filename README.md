@@ -53,8 +53,8 @@ http://localhost:8086/api/1.0/swagger-ui.html
 
 | Request | Access Point | Explanation                |
 | :-------- | :------- | :------------------------- |
-| `POST` | `/api/1.0/user/create` | Create a new user and return UserResponse object |
-| `PUT` | `/api/1.0/user/update-user-enabled` | Update user's enabled status |
+| `POST` | `/api/1.0/users/create` | Create a new user and return UserResponse object |
+| `PUT` | `/api/1.0/users/update-user-enabled` | Update user's enabled status |
 
 
 ### Campaign:
