@@ -66,7 +66,7 @@ public class DataInitializer implements CommandLineRunner {
                     .build();
 
             CampaignCategory campaignCategoryPHI = CampaignCategory.builder()
-                    .campaignCategoryName("Private Health Insurance")
+                        .campaignCategoryName("Private Health Insurance")
                     .campaignCategoryRequiresApprovement(true)
                     .build();
 

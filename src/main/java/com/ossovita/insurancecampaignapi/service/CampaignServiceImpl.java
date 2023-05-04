@@ -6,11 +6,7 @@ import com.ossovita.insurancecampaignapi.enums.CampaignEventType;
 import com.ossovita.insurancecampaignapi.enums.CampaignStatus;
 import com.ossovita.insurancecampaignapi.error.exception.IdNotFoundException;
 import com.ossovita.insurancecampaignapi.error.exception.RepetitiveCampaignException;
-import com.ossovita.insurancecampaignapi.payload.request.CampaignRequest;
-import com.ossovita.insurancecampaignapi.payload.request.UpdateCampaignByAdminRequest;
-import com.ossovita.insurancecampaignapi.payload.request.UpdateCampaignByCompanyRequest;
-import com.ossovita.insurancecampaignapi.payload.request.UpdateCampaignStatusRequest;
-import com.ossovita.insurancecampaignapi.payload.request.UpdateMultipleCampaignStatusRequest;
+import com.ossovita.insurancecampaignapi.payload.request.*;
 import com.ossovita.insurancecampaignapi.payload.response.CampaignResponse;
 import com.ossovita.insurancecampaignapi.payload.response.StatisticsResponse;
 import com.ossovita.insurancecampaignapi.repository.CampaignRepository;
@@ -44,7 +40,7 @@ public class CampaignServiceImpl implements CampaignService {
         if (campaignRepository.isCampaignExists(campaign)) {
             campaign.setCampaignStatus(CampaignStatus.REPETITIVE);
         } else { // if campaign is unique
-            //validate userId //TODO | remove?
+            //validate userId
             campaign.setUserId(userService.findByUserId(campaignRequest.getUserId()).getUserId());
             setCampaignStatusDependsOnRequiresApprovement(campaign);
         }
@@ -58,14 +54,11 @@ public class CampaignServiceImpl implements CampaignService {
     public CampaignResponse deactivateCampaignStatus(long campaignId) {
         Campaign campaign = findById(campaignId);
         //The user can "Deactivate" the "Active" status or "Pending Approval" status.
-        if (campaign.getCampaignStatus().equals(CampaignStatus.PENDING_APPROVAL) || campaign.getCampaignStatus().equals(CampaignStatus.ACTIVE)) {
-            //Repetitive Campaign can not be updated
-            setCampaignStatusIfNotRepetitive(campaign, CampaignStatus.DEACTIVATED);
-        }
+        //Repetitive Campaign can not be updated
+        setCampaignStatusIfNotRepetitive(campaign, CampaignStatus.DEACTIVATED);
+
         saveCampaignEvent(campaign, CampaignEventType.UPDATE);
         return modelMapper.map(campaignRepository.save(campaign), CampaignResponse.class);
-
-
     }
 
 
@@ -138,7 +131,7 @@ public class CampaignServiceImpl implements CampaignService {
         }
     }
 
-
+    //campaignStatus should be PENDING_APPROVAL right after Create or Update Campaign except 'Life Insurance' category
     public void setCampaignStatusDependsOnRequiresApprovement(Campaign campaign) {
         // check isCampaignCategoryRequiresApprovement
         if (campaignCategoryService.findById(campaign.getCampaignCategoryId()).isCampaignCategoryRequiresApprovement()) {
