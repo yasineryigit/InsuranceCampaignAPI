@@ -65,7 +65,6 @@ public class CampaignServiceImpl implements CampaignService {
     @Override
     public CampaignResponse updateCampaignByAdmin(UpdateCampaignByAdminRequest updateCampaignByAdminRequest) {
         Campaign updatedCampaign = updateCampaign(modelMapper.map(updateCampaignByAdminRequest, Campaign.class));
-        //updatedCampaign.setCampaignStatus(updateCampaignByAdminRequest.getCampaignStatus());//todo remove ?
         saveCampaignEvent(updatedCampaign, CampaignEventType.UPDATE);
         return modelMapper.map(campaignRepository.save(updatedCampaign), CampaignResponse.class);
     }

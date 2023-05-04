@@ -26,10 +26,10 @@ public class CampaignRequest {
     @ApiModelProperty(value = "1: Complementary Health Insurance | 2: Private Health Insurance | 3: Life Insurance | 4: Others", example = "2", required = true)
     private long campaignCategoryId;
 
-    @Size(min = 1, max = 50) //TODO | set as 10-50
+    @Size(min = 10, max = 50)
     private String campaignTitle;
 
-    @Size(min = 1, max = 200) //TODO | set as 50-200
+    @Size(min = 50, max = 200)
     private String campaignDescription;
 
 

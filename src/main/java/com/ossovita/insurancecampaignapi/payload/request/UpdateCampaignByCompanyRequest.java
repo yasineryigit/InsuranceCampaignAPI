@@ -15,10 +15,10 @@ public class UpdateCampaignByCompanyRequest {
     @Min(value = 1, message = "{ossovita.constraint.id.validation.message}")
     private long campaignId;
 
-    @Size(min = 1, max = 50) //TODO | set as 10-50
+    @Size(min = 10, max = 50)
     private String campaignTitle;
 
-    @Size(min = 1, max = 200) //TODO | set as 50-200
+    @Size(min = 50, max = 200)
     private String campaignDescription;
 
     @NotNull(message = "{ossovita.constraint.field.NotNull.message}")
