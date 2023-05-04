@@ -24,7 +24,7 @@ public class UpdateCampaignByAdminRequest {
     @Size(min = 10, max = 50)
     private String campaignTitle;
 
-    @Size(min = 50, max = 200)
+    @Size(min = 20, max = 200)
     private String campaignDescription;
 
     @NotNull

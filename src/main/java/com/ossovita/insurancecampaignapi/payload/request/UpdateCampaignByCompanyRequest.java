@@ -18,7 +18,7 @@ public class UpdateCampaignByCompanyRequest {
     @Size(min = 10, max = 50)
     private String campaignTitle;
 
-    @Size(min = 50, max = 200)
+    @Size(min = 20, max = 200)
     private String campaignDescription;
 
     @NotNull(message = "{ossovita.constraint.field.NotNull.message}")

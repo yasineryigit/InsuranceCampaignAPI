@@ -22,6 +22,7 @@ For this project,  JWT authentication and authorization implemented. As a result
 - SwaggerUI
 - PostgreSQL
 - Timeout logging
+- Campaign Event logging
 
 
 ## Installation
