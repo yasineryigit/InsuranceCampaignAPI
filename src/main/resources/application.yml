@@ -20,8 +20,8 @@ server:
 
 jwt:
   secret: mySecretKey
-  expireMs: 86400000 #30 sec
-  refreshExpireMs: 86400000 #1 min
+  expireMs: 86400000 
+  refreshExpireMs: 86400000 
 
 
 
