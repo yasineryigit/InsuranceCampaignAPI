@@ -8,6 +8,7 @@ import com.ossovita.insurancecampaignapi.payload.request.CampaignRequest;
 import com.ossovita.insurancecampaignapi.payload.request.UpdateCampaignByAdminRequest;
 import com.ossovita.insurancecampaignapi.payload.response.CampaignResponse;
 import com.ossovita.insurancecampaignapi.repository.CampaignRepository;
+import com.ossovita.insurancecampaignapi.service.impl.CampaignServiceImpl;
 import jdk.jfr.Description;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -92,7 +93,6 @@ class CampaignServiceTest {
     @Test
     void createCampaign_ShouldReturnCampaignResponse() {
         // Arrange
-
         when(campaignRepository.isCampaignExists(campaign)).thenReturn(false);
         when(userService.findByUserId(campaignRequest.getUserId())).thenReturn(user);
         when(campaignRepository.save(campaign)).thenReturn(campaign);
@@ -116,7 +116,7 @@ class CampaignServiceTest {
                 .campaignId(1)
                 .campaignTitle("title")
                 .campaignDescription("description")
-                .campaignStatus(CampaignStatus.REPETITIVE)
+                .campaignStatus(CampaignStatus.ACTIVE)
                 .userId(user.getUserId())
                 .campaignCategoryId(campaignCategory.getCampaignCategoryId())
                 .build();
@@ -139,7 +139,6 @@ class CampaignServiceTest {
         // Assert
         assertEquals(campaignResponse, actualResponse);
     }
-
 
     @Test
     void updateCampaignByAdmin_ShouldReturnCampaignResponse() {

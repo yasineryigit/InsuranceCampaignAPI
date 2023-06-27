@@ -1,4 +1,4 @@
-package com.ossovita.insurancecampaignapi.service;
+package com.ossovita.insurancecampaignapi.service.impl;
 
 import com.ossovita.insurancecampaignapi.entity.Campaign;
 import com.ossovita.insurancecampaignapi.entity.CampaignEvent;
@@ -10,6 +10,10 @@ import com.ossovita.insurancecampaignapi.payload.request.*;
 import com.ossovita.insurancecampaignapi.payload.response.CampaignResponse;
 import com.ossovita.insurancecampaignapi.payload.response.StatisticsResponse;
 import com.ossovita.insurancecampaignapi.repository.CampaignRepository;
+import com.ossovita.insurancecampaignapi.service.CampaignCategoryService;
+import com.ossovita.insurancecampaignapi.service.CampaignEventService;
+import com.ossovita.insurancecampaignapi.service.CampaignService;
+import com.ossovita.insurancecampaignapi.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 

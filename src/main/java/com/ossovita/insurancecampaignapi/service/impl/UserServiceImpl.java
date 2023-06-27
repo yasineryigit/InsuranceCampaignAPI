@@ -1,4 +1,4 @@
-package com.ossovita.insurancecampaignapi.service;
+package com.ossovita.insurancecampaignapi.service.impl;
 
 import com.ossovita.insurancecampaignapi.entity.User;
 import com.ossovita.insurancecampaignapi.error.exception.UserNotFoundException;
